@@ -3,13 +3,12 @@
 local wk = require("which-key")
 local opts = { noremap = true, silent = true }
 
-
-
 wk.register({
     ["<C-s>"] = { ":w<cr>", "save file" },
     ["<C-b>"] = { ":NvimTreeToggle<CR>", "toggle nvim tree" },
     ["<C-n>"] = { ":NvimTreeFocus<CR>", "focus nvim tree" },
-    ["<space>wk"] = {":WhichKey<cr>", "show all mappings"},
+    ["<space>wk"] = { ":WhichKey<cr>", "show all mappings" },
+    ['ff'] = { function() require("conform").format({ lsp_fallback = "always" }) end, "format file" },
 })
 wk.register({
     ["<C-n>"] = { "<Esc>:NvimTreeFocus<CR>", "focus nvim tree" },
@@ -46,7 +45,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             ['<C-k>'] = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', "signature help" },
             ['<F2>'] = { '<cmd>lua vim.lsp.buf.rename()<CR>', "rename symbol" },
             ['<space>ca'] = { '<cmd>lua vim.lsp.buf.code_action()<CR>', "code action" },
-            ['ff'] = { '<cmd>lua vim.lsp.buf.format({async = true})<CR>', "format file" },
         }, { buffer = ev.buf })
     end,
 })
@@ -87,6 +85,12 @@ wk.register({
         g = { ":Telescope live_grep<cr>", "live grep" },
         s = { ":Telescope lsp_dynamic_workspace_symbols<cr>", "workspace symbols" },
     },
+})
+
+wk.register({
+    ["<space>x"] = {
+        x = { function() require("trouble").toggle() end, "toggle trouble" }
+    }
 })
 
 local M = require("user.json_config")

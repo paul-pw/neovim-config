@@ -10,16 +10,16 @@ o.smartindent = true
 o.smartcase = true
 o.swapfile = false
 o.backup = false
-local cache_home = os.getenv("XDG_CACHE_HOME")  
+local cache_home = os.getenv("XDG_CACHE_HOME")
 if cache_home == nil then cache_home = "/home/paul/.cache" end
 o.undodir = cache_home.. "/nvim/undodir" -- this does not work if env is not set
 o.undofile = true
 o.incsearch = true
 o.encoding = 'utf-8'
-o.conceallevel = 2 -- show latex and markdown math symbols as unicode symbols
+-- o.conceallevel = 2 -- show latex and markdown math symbols as unicode symbols
 --line numbers on the side
 o.number = true
-o.relativenumber = true
+o.relativenumber = false
 
 -- use systemc clipboard
 o.clipboard = 'unnamedplus'
@@ -63,6 +63,7 @@ require("lazy").setup("user.plugins")
 -- Include the Lua config
 ----------------------------
 require('user.keymap')
+require('user.extra')
 -------------
 -- NOTES
 --------------

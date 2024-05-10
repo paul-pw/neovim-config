@@ -58,10 +58,20 @@ return {
         opts = {
             formatters_by_ft = {
                 nix = { "nixpkgs-fmt" },
+                python = {"isort", "black"},
+                html = {"prettier"},
+                json = {"prettier"},
+                css = {"prettier"},
+                markdown = {"prettier"}
             },
             lsp_fallback = true,
             --format_on_save = { timeout_ms = 500, lsp_fallback = true },
         }
+    },
+    {
+        "folke/trouble.nvim",
+        dependencies = {"nvim-tree/nvim-web-devicons"},
+        opts = {},
     }
 
     -- TODO Comments.nvim

@@ -24,8 +24,5 @@ return {
         require('nvim-tree').setup({
             on_attach = my_on_attach
         })
-
-
-        local opts = { noremap = true, silent = true }
     end
 }

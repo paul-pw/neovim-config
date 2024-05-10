@@ -15,15 +15,8 @@ return {
             local lspconfig = require("lspconfig")
 
             lspconfig.clangd.setup {}
-            lspconfig.basedpyright.setup {
-                --[[settings = {
-                    python = {
-                        analysis = {
-                            typeCheckingMode = "off",
-                        }
-                    }
-                }--]]
-            }
+            lspconfig.basedpyright.setup {}
+            lspconfig.nil_ls.setup {}
 
             -- set the runtime_path for lua-language-server
             local runtime_path = vim.split(package.path, ';')
@@ -65,11 +58,6 @@ return {
             require("mason").setup() -- TODO this could be cleaner
             require("mason-lspconfig").setup({
                 handlers = handlers,
-                --[[ensure_installed = {
-                    "clangd",
-                    "lua_ls"
-                },]] --
-
             })
         end
     },
