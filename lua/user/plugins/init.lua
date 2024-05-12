@@ -34,9 +34,7 @@ return {
             'nvim-lua/plenary.nvim'
         },
         config = true
-        --[[function()
-            require('gitsigns').setup()
-        end--]]
+
     },
 
     {
@@ -58,11 +56,11 @@ return {
         opts = {
             formatters_by_ft = {
                 nix = { "nixpkgs-fmt" },
-                python = {"isort", "black"},
-                html = {"prettier"},
-                json = {"prettier"},
-                css = {"prettier"},
-                markdown = {"prettier"}
+                python = { "isort", "black" },
+                html = { "prettier" },
+                json = { "prettier" },
+                css = { "prettier" },
+                markdown = { "prettier" }
             },
             lsp_fallback = true,
             --format_on_save = { timeout_ms = 500, lsp_fallback = true },
@@ -70,14 +68,24 @@ return {
     },
     {
         "folke/trouble.nvim",
-        dependencies = {"nvim-tree/nvim-web-devicons"},
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {},
+    },
+    {
+        -- pretty statusline
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        opts = {}
+    },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            mappings = false -- I want custom mappings
+        },
+        lazy = false,
     }
 
-    -- TODO Comments.nvim
     -- TODO nvim-scissors / create custom snippets with lua-snippets
     -- TODO harpoon
-    -- TODO trouble.nvim
-    -- TODO Setup Whichkey
     -- TODO colors to see the colors of hex values
 }

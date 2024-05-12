@@ -1,7 +1,7 @@
 return {
     'nvim-tree/nvim-tree.lua',
     dependencies = {
-        'nvim-tree/nvim-web-devicons',     -- optional, for file icon
+        'nvim-tree/nvim-web-devicons', -- optional, for file icon
     },
     config = function()
         -- Tree setup

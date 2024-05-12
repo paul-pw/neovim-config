@@ -12,7 +12,7 @@ o.swapfile = false
 o.backup = false
 local cache_home = os.getenv("XDG_CACHE_HOME")
 if cache_home == nil then cache_home = "/home/paul/.cache" end
-o.undodir = cache_home.. "/nvim/undodir" -- this does not work if env is not set
+o.undodir = cache_home .. "/nvim/undodir" -- this does not work if env is not set
 o.undofile = true
 o.incsearch = true
 o.encoding = 'utf-8'
@@ -28,7 +28,7 @@ o.clipboard = 'unnamedplus'
 o.splitbelow = true
 o.splitright = true
 
--- scroll by screen lines instead of actual lines 
+-- scroll by screen lines instead of actual lines
 -- o.smoothscroll = true
 
 --show spaces as dots
@@ -40,8 +40,6 @@ o.laststatus = 3
 
 -- faster load times
 vim.loader.enable()
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Bootstrap Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
