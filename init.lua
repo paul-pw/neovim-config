@@ -15,6 +15,7 @@ if cache_home == nil then cache_home = "/home/paul/.cache" end
 o.undodir = cache_home .. "/nvim/undodir" -- this does not work if env is not set
 o.undofile = true
 o.incsearch = true
+o.inccommand = "split" -- live preview when replacing text
 o.encoding = 'utf-8'
 -- o.conceallevel = 2 -- show latex and markdown math symbols as unicode symbols
 --line numbers on the side

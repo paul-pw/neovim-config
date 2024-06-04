@@ -77,14 +77,6 @@ return {
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         opts = {}
     },
-    {
-        'numToStr/Comment.nvim',
-        opts = {
-            mappings = false -- I want custom mappings
-        },
-        lazy = false,
-    }
-
     -- TODO nvim-scissors / create custom snippets with lua-snippets
     -- TODO harpoon
     -- TODO colors to see the colors of hex values

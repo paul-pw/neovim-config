@@ -10,9 +10,6 @@ wk.register({
     ["<space>wk"] = { ":WhichKey<cr>", "show all mappings" },
     ['ff'] = { function() require("conform").format({ lsp_fallback = "always" }) end, "format file" },
 
-    ['gc'] = { "<Plug>(comment_toggle_linewise_current)", "comment line" },
-    ['gb'] = { "<Plug>(comment_toggle_blockwise_current)", "comment line" },
-
 })
 wk.register({
     ["<C-n>"] = { "<Esc>:NvimTreeFocus<CR>", "focus nvim tree" },
@@ -31,8 +28,6 @@ wk.register({
 wk.register({
     ['<A-j>'] = { ":m '>+1<CR>gv=gv", "move lines down" },
     ['<A-k>'] = { ":m '<-2<CR>gv=gv", "move lines up" },
-    ['gc'] = { '<Plug>(comment_toggle_linewise_visual)', "comment line" },
-    ['gb'] = { '<Plug>(comment_toggle_blockwise_visual)', "comment block" },
 }, { mode = "v" })
 
 -- set keymap on lsp attach
