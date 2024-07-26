@@ -8,7 +8,7 @@ o.shiftwidth = 4
 o.expandtab = true
 o.smartindent = true
 o.smartcase = true
-o.swapfile = false
+o.swapfile = true
 o.backup = false
 local cache_home = os.getenv("XDG_CACHE_HOME")
 if cache_home == nil then cache_home = "/home/paul/.cache" end
