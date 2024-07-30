@@ -3,97 +3,92 @@
 local wk = require("which-key")
 local opts = { noremap = true, silent = true }
 
-wk.register({
-    ["<C-s>"] = { ":w<cr>", "save file" },
-    ["<C-b>"] = { ":NvimTreeToggle<CR>", "toggle nvim tree" },
-    ["<C-n>"] = { ":NvimTreeFocus<CR>", "focus nvim tree" },
-    ["<space>wk"] = { ":WhichKey<cr>", "show all mappings" },
-    ['ff'] = { function() require("conform").format({ lsp_fallback = "always" }) end, "format file" },
-
-})
-wk.register({
-    ["<C-n>"] = { "<Esc>:NvimTreeFocus<CR>", "focus nvim tree" },
-    ["<C-s>"] = { "<Esc>:w<cr>i<Right>", "save file" },
-}, { mode = 'i' })
-
--- VScode like moving of lines and selections
-wk.register({
-    ['<A-j>'] = { ':m .+1<CR>==', "move line down" },
-    ['<A-k>'] = { ':m .-2<CR>==', "move line up" }
-}, { mode = "n" })
-wk.register({
-    ['<A-j>'] = { '<esc>:m .+1<CR>==', "move line down" },
-    ['<A-k>'] = { '<esc>:m .-2<CR>==', "move line up" }
-}, { mode = "i" })
-wk.register({
-    ['<A-j>'] = { ":m '>+1<CR>gv=gv", "move lines down" },
-    ['<A-k>'] = { ":m '<-2<CR>gv=gv", "move lines up" },
-}, { mode = "v" })
-
--- set keymap on lsp attach
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(ev)
-        vim.api.nvim_buf_set_option(ev.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        wk.register({
-            g = {
-                name = "Go To",
-                D = { '<cmd>lua vim.lsp.buf.declaration()<CR>', "goto declaration" },
-                d = { '<cmd>lua vim.lsp.buf.definition()<CR>', "go to definition" },
-                r = { '<cmd>lua vim.lsp.buf.references()<CR>', "go to reference" },
-                i = { '<cmd>lua vim.lsp.buf.implementation()<CR>', "go to implementation" },
-            },
-            ['K'] = { '<cmd>lua vim.lsp.buf.hover()<CR>', "hover" },
-            ['<C-k>'] = { '<cmd>lua vim.lsp.buf.signature_help()<CR>', "signature help" },
-            ['<F2>'] = { '<cmd>lua vim.lsp.buf.rename()<CR>', "rename symbol" },
-            ['<space>ca'] = { '<cmd>lua vim.lsp.buf.code_action()<CR>', "code action" },
-        }, { buffer = ev.buf })
-    end,
-})
-
-
--- DAP
-wk.register({
-    ['<F5>'] = { function() require "dap".continue() end, "start debugging session" },
-    ['<F6>'] = { function() require "dap".terminate() end, "terminate debugging session" },
-    ['<'] = {
+wk.add({ {
+    mode = { "n" },
+    { "<C-s>",     ":w<cr>",                                                              desc = "save file" },
+    { "<C-b>",     ":NvimTreeToggle<CR>",                                                 desc = "toggle nvim tree" },
+    { "<C-n>",     ":NvimTreeFocus<CR>",                                                  desc = "focus nvim tree" },
+    { "<space>wk", ":WhichKey<cr>",                                                       desc = "show all mappings" },
+    { 'ff',        function() require("conform").format({ lsp_fallback = "always" }) end, desc = "format file" },
+}, {
+    mode = { 'i' },
+    { "<C-n>", "<Esc>:NvimTreeFocus<CR>", desc = "focus nvim tree" },
+    { "<C-s>", "<Esc>:w<cr>i<Right>",     desc = "save file" },
+}, {
+    -- VScode like moving of lines and selections
+    mode = { "n" },
+    { '<A-j>', ':m .+1<CR>==', desc = "move line down" },
+    { '<A-k>', ':m .-2<CR>==', desc = "move line up" },
+}, {
+    mode = { "i" },
+    { '<A-j>', '<esc>:m .+1<CR>==', desc = "move line down" },
+    { '<A-k>', '<esc>:m .-2<CR>==', desc = "move line up" },
+}, {
+    mode = { "v" },
+    { '<A-j>', ":m '>+1<CR>gv=gv", desc = "move lines down" },
+    { '<A-k>', ":m '<-2<CR>gv=gv", desc = "move lines up" },
+}, {
+    -- DAP
+    { '<F5>', function() require "dap".continue() end,  desc = "start debugging session" },
+    { '<F6>', function() require "dap".terminate() end, desc = "terminate debugging session" },
+    {
+        '<',
         function()
             require "dap".step_into({ stepping_granularity = "line", ask_for_targets = true })
-        end, "step into" },
-    ['>'] = { function() require "dap".step_over() end, "step over" },
-    ['<F9>'] = { function() require "dap".toggle_breakpoint() end, "toggle breakpoint" },
-    ['<F10>'] = {
+        end,
+        desc = "step into"
+    },
+    { '>',    function() require "dap".step_over() end,         desc = "step over" },
+    { '<F9>', function() require "dap".toggle_breakpoint() end, desc = "toggle breakpoint" },
+    {
+        '<F10>',
         function()
             local w = require "dap.ui.widgets".hover()
             vim.keymap.set('n', '<Esc>', function() w.close() end, { buffer = true })
             vim.keymap.set('n', 'q', function() w.close() end, { buffer = true })
-        end, "hover widget" },
-    ['<C-F10>'] = {
+        end,
+        desc = "hover widget"
+    },
+    {
+        '<C-F10>',
         function()
             local widgets = require("dap.ui.widgets")
             local w = widgets.centered_float(widgets.scopes)
             vim.keymap.set('n', '<Esc>', function() w.close() end, { buffer = true })
             vim.keymap.set('n', 'q', function() w.close() end, { buffer = true })
-        end, "DAP scopes" }
-})
-
-
--- Finding stuff with Telescope
-wk.register({
-    ["<C-f>"] = { ":Telescope live_grep<cr>", "find file" },
-    f = {
-        name = "Find",
-        F = { ":Telescope find_files<cr>", "find files" },
-        g = { ":Telescope live_grep<cr>", "live grep" },
-        s = { ":Telescope lsp_dynamic_workspace_symbols<cr>", "workspace symbols" },
-    },
-})
-
-wk.register({
-    ["<space>x"] = {
-        x = { function() require("trouble").toggle() end, "toggle trouble" }
+        end,
+        desc = "DAP scopes"
     }
-})
+}, {
+    -- Finding stuff with Telescope
+    { "f",     group = "Find and Format" },
+    { "<C-f>", ":Telescope live_grep<cr>",                     desc = "find file" },
+    { "fc",    ":Telescope find_files<cr>",                    desc = "find files" },
+    { "fg",    ":Telescope live_grep<cr>",                     desc = "live grep" },
+    { "fs",    ":Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace symbols" },
+}, {
+    { "<space>x",  group = "Trouble" },
+    { "<space>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "toggle trouble" },
+} })
 
+
+-- set keymap on lsp attach
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        vim.api.nvim_buf_set_option(ev.buf, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        wk.add({
+            { "g",         group = "Go To" },
+            { "gD",        '<cmd>lua vim.lsp.buf.declaration()<CR>',    desc = "goto declaration" },
+            { "gd",        '<cmd>lua vim.lsp.buf.definition()<CR>',     desc = "go to definition" },
+            { "gr",        '<cmd>lua vim.lsp.buf.references()<CR>',     desc = "go to reference" },
+            { "gi",        '<cmd>lua vim.lsp.buf.implementation()<CR>', desc = "go to implementation" },
+            { 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>',          desc = "hover" },
+            { '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', desc = "signature help" },
+            { '<F2>',      '<cmd>lua vim.lsp.buf.rename()<CR>',         desc = "rename symbol" },
+            { '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>',    desc = "code action" },
+        }, { buffer = ev.buf })
+    end,
+})
 local M = require("user.json_config")
 
 if M.build.build then

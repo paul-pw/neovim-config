@@ -14,19 +14,14 @@ return {
             })
         end
     },
-
     -- Autosave
     {
         "Pocco81/auto-save.nvim",
-        event = { "InsertLeave", "TextChanged"},
-        config = function()
-            require("auto-save").setup(
-                {
-                    enabled = true,
-                    debounce_delay = 3,
-                }
-            )
-        end
+        event = { "InsertLeave", "TextChanged" },
+        opts = {
+            enabled = true,
+            debounce_delay = 3,
+        }
     },
 
     {
