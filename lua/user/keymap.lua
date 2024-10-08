@@ -61,11 +61,11 @@ wk.add({ {
     }
 }, {
     -- Finding stuff with Telescope
-    { "f",     group = "Find and Format" },
+    { "<space>f",     group = "Find and Format" },
     { "<C-f>", ":Telescope live_grep<cr>",                     desc = "find file" },
-    { "fc",    ":Telescope find_files<cr>",                    desc = "find files" },
-    { "fg",    ":Telescope live_grep<cr>",                     desc = "live grep" },
-    { "fs",    ":Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace symbols" },
+    { "<space>fc",    ":Telescope find_files<cr>",                    desc = "find files" },
+    { "<space>fg",    ":Telescope live_grep<cr>",                     desc = "live grep" },
+    { "<space>fs",    ":Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace symbols" },
 }, {
     { "<space>x",  group = "Trouble" },
     { "<space>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "toggle trouble" },
