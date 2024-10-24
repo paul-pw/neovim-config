@@ -16,7 +16,14 @@ return {
 
             lspconfig.clangd.setup {}
             lspconfig.basedpyright.setup {}
-            lspconfig.nil_ls.setup {}
+            lspconfig.nixd.setup{
+                settings = {
+                    nixpkgs = {
+                        -- setup default nix packages for autocomplete
+                        expr = "import <nixpkgs> { }",
+                    }
+                }
+            }
 
             -- set the runtime_path for lua-language-server
             local runtime_path = vim.split(package.path, ';')
